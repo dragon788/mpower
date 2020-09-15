@@ -29,3 +29,17 @@ The script will record the current time, active power, current, voltage, and pow
  * The voltage reported by the device is the mains voltage.
  * Active power = voltage * current * power factor.
  * If you associated the device with your wireless network, specify its new hostname/IP as an argument to the script.
+
+## reset-smart-bulb.sh
+Copy this file (or the contents of it) to `$HOME/bin/reset-smart-bulb.sh` and `chmod +x $HOME/bin/reset-smart-builb.sh`. The reason to use this directory is it will persist, while the /bin and /usr/bin may get reset during restarts or firmware upgrades (haha..... sorry, probably none of those ever happening again).
+
+Now you can run the command below to quickly trigger a bulb reset without needing to open a long term connection for one command. This example shows `syl` but if you omit it that is the default as well, otherwise you can use `seng` for Sengled.
+
+```
+ssh -c aes256-cbc -oKexAlgorithms=+diffie-hellman-group1-sha1 ubnt@192.168.2.20 '$HOME/bin/reset-smart-bulb.sh syl'
+```
+
+If you prefer to log in to be able to tweak things you can just drop everything after the `user@hostnameORip` and then once logged in run `bin/reset-smart-bulb.sh`
+
+
+For more convenience add your SSH public key to the `$HOME/.ssh/authorized_keys` and you can run the command or connect without getting prompted for a password if you are running `ssh-agent` or `gpg-agent` to cache the passphrase/PIN for your private key.
